@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.CoronaFragment">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        android:id="@+id/appBar"
+        >
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_corona"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|enterAlways"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <TextView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Search Country"
+                android:textColor="@color/materialBlue"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/headerCard"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/country_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/round_border"
+                app:layout_constraintLeft_toRightOf="@+id/search"
+                app:layout_constraintRight_toLeftOf="@+id/sort"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/sort"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="76dp"
+                android:background="@drawable/round_border_sort_button"
+                android:backgroundTint="@color/materialBlue"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="2dp"
+                android:src="@drawable/ic_sort"
+                app:layout_constraintBottom_toTopOf="@+id/headerCard"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/headerCard"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginVertical="5dp"
+                android:foreground="@drawable/border"
+                app:cardElevation="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/country_search">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/headerConstraint"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="60dp"
+                        android:background="@color/materialBlue"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/flag" />
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="80dp"
+                        android:background="@color/materialBlue"
+                        app:layout_constraintLeft_toRightOf="@+id/view1" />
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="70dp"
+                        android:background="@color/materialBlue"
+                        app:layout_constraintLeft_toRightOf="@+id/view2" />
+
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="70dp"
+                        android:background="@color/materialBlue"
+                        app:layout_constraintLeft_toRightOf="@+id/view3" />
+
+                    <TextView
+                        android:id="@+id/flag"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/materialBlue"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="Flag"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/view1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="Name"
+                        android:textColor="@color/materialBlue"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/view1"
+                        app:layout_constraintRight_toLeftOf="@+id/view2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/Taffected"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/materialYellow"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="Total Affected"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/view2"
+                        app:layout_constraintRight_toLeftOf="@+id/view3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/Tdeaths"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/materialRed"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="Total Deaths"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/view3"
+                        app:layout_constraintRight_toLeftOf="@+id/view4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/Trecovered"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/materialGreen"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="Total Recovered"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/view4"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/coronaRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_marginVertical="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/headerCard" />
+
+            <!--    <ProgressBar-->
+            <!--        android:layout_width="40dp"-->
+            <!--        android:layout_height="40dp"-->
+            <!--        android:layout_gravity="center"-->
+            <!--        android:id="@+id/coronaProgress"/>-->
+            <!--    <TextView-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_gravity="center"-->
+            <!--        android:id="@+id/coronaError"-->
+            <!--        android:text=""/>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
