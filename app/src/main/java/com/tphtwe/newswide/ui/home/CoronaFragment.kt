@@ -1,6 +1,7 @@
 package com.tphtwe.newswide.ui.home
 
 import android.app.AlertDialog
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -25,7 +26,6 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
     private lateinit var coronaViewModel: CoronaViewModel
     lateinit var coronaAdapter: CoronaAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,7 +47,6 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         coronaViewModel = ViewModelProvider(this).get(CoronaViewModel::class.java)
         coronaAdapter = CoronaAdapter()
         coronaAdapter.setOnClickListener(this)
@@ -65,21 +64,21 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
                 coronaAdapter.updateCountry(it)
             }
         )
-//        coronaViewModel.getProgress().observe(
-//            viewLifecycleOwner, Observer<Boolean> { isLoading ->
-//                coronaProgress.visibility = if (isLoading) {
-//                    View.VISIBLE
-//                } else View.INVISIBLE
-//            })
-//        coronaViewModel.getErrorStatus().observe(
-//            viewLifecycleOwner, Observer { status ->
-//                if (status) {
-//                    coronaViewModel.getErrorMessage().observe(
-//                        viewLifecycleOwner, Observer { message ->
-//                            coronaError.text = message
-//                        })
-//                }
-//            })
+        coronaViewModel.getProgress().observe(
+            viewLifecycleOwner, Observer<Boolean> { isLoading ->
+                coronaProgress.visibility = if (isLoading) {
+                    View.VISIBLE
+                } else {View.INVISIBLE }
+            })
+        coronaViewModel.getErrorStatus().observe(
+            viewLifecycleOwner, Observer { status ->
+                if (status) {
+                    coronaViewModel.getErrorMessage().observe(
+                        viewLifecycleOwner, Observer { message ->
+                            coronaError.text = message
+                        })
+                }
+            })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -88,6 +87,7 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
     }
 
     override fun onResume() {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         (activity as AppCompatActivity).setSupportActionBar(toolbar_corona)
         (activity as AppCompatActivity).supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
         (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)

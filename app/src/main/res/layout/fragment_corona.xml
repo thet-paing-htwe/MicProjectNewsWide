@@ -198,18 +198,27 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/headerCard" />
+                app:layout_constraintTop_toBottomOf="@+id/headerCard"
+                android:layoutAnimation="@anim/layout_animation"/>
 
-            <!--    <ProgressBar-->
-            <!--        android:layout_width="40dp"-->
-            <!--        android:layout_height="40dp"-->
-            <!--        android:layout_gravity="center"-->
-            <!--        android:id="@+id/coronaProgress"/>-->
-            <!--    <TextView-->
-            <!--        android:layout_width="wrap_content"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:layout_gravity="center"-->
-            <!--        android:id="@+id/coronaError"-->
-            <!--        android:text=""/>-->
+                <ProgressBar
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/coronaProgress"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/coronaError"
+                    android:text=""
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -15,9 +15,9 @@ class AllViewModel : ViewModel() {
 
     fun getResult():LiveData<All> = result
 
-    fun loadResult(search:String){
+    fun loadResult(search:String,date1:String,date2:String){
         var apiClient=ApiClient()
-        var call=apiClient.getAllNews(search,"publishedAt")
+        var call=apiClient.getAllNews(search,"publishedAt",date1,date2)
         call.enqueue(object :Callback<All>{
             override fun onFailure(call: Call<All>, t: Throwable) {
 

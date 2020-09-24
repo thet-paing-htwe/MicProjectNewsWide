@@ -1,8 +1,12 @@
 package com.tphtwe.newswide.ui.all
 
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -14,6 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tphtwe.newswide.R
 import com.tphtwe.newswide.model.allNews.Article
 import kotlinx.android.synthetic.main.fragment_all_news.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 
 class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
 //    private var searchView: SearchView? = null
@@ -21,6 +28,9 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
 
     private lateinit var allViewModel: AllViewModel
     lateinit var allNewsAdapter: AllNewsAdapter
+    lateinit var currentDate: String
+    lateinit var date: String
+    var queryText: String = "vaccine"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +70,47 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
     }
 
 
+    @SuppressLint("SimpleDateFormat")
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+
+        (activity as AppCompatActivity).setSupportActionBar(toolbar_all)
+        (activity as AppCompatActivity).supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
+        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar!!.title = "Gallery"
+
+        currentDate = LocalDate.now().toString()
+        date = currentDate
+        allViewModel.loadResult(queryText, date, date)
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        c.add(Calendar.DATE,-31)
+
+        dateBtn.setOnClickListener {
+            val dpd = DatePickerDialog(
+                requireContext(),
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    // Display Selected date in TextView
+                    var selectedDate = "$year-0${month+1}-$dayOfMonth"
+                    var formatDate= dateFormat2(selectedDate)
+                    date = formatDate
+                    Log.d("date", date.toString())
+                    allViewModel.loadResult(queryText, date, date)
+                },
+                year,
+                month,
+                day
+            )
+            dpd.datePicker.maxDate = System.currentTimeMillis();
+            dpd.datePicker.minDate=c.timeInMillis
+            dpd.show()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
@@ -69,8 +120,10 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
         searchView.queryHint = "Search"
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                date=currentDate
                 Log.d("submit", query!!.toString())
-                allViewModel.loadResult(query!!)
+                queryText = query
+                allViewModel.loadResult(queryText!!, date, date)
                 observeViewModel()
                 return true
             }
@@ -83,31 +136,30 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        (activity as AppCompatActivity).setSupportActionBar(toolbar_all)
-        (activity as AppCompatActivity).supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
-        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar!!.title="Gallery"
-
-        allViewModel.loadResult("vaccine")
-    }
-
 
     override fun click(article: Article) {
-        var authorTxt=""
-        if (article.author == null){
-            authorTxt="Anonymous"
-        }else{authorTxt=article.author.toString()}
-
-        var img:String=""
-        if(article.urlToImage==null){
-            img="https://i.pinimg.com/736x/2c/fa/39/2cfa392e8d0b5596ac8f5bf999470ac8.jpg"
+        var authorTxt = ""
+        if (article.author == null) {
+            authorTxt = "Anonymous"
+        } else {
+            authorTxt = article.author.toString()
         }
-        else{img=article.urlToImage}
 
-        var action = AllFragmentDirections.actionNavGalleryToNewsDetailFragment(img,article.title,article.source.name,authorTxt,article.publishedAt,article.url)
+        var img: String = ""
+        if (article.urlToImage == null) {
+            img = "https://i.pinimg.com/736x/2c/fa/39/2cfa392e8d0b5596ac8f5bf999470ac8.jpg"
+        } else {
+            img = article.urlToImage
+        }
+
+        var action = AllFragmentDirections.actionNavGalleryToNewsDetailFragment(
+            img,
+            article.title,
+            article.source.name,
+            authorTxt,
+            article.publishedAt,
+            article.url
+        )
         findNavController().navigate(action)
     }
 

@@ -15,21 +15,22 @@
             app:destination="@id/detailFragment" />
     </fragment>
 
+
+
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_vaccine"
+        android:name="com.tphtwe.newswide.ui.vaccine.VaccineTrackerFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_vaccine_tracker" />
+    <fragment
+        android:id="@+id/nav_all"
         android:name="com.tphtwe.newswide.ui.all.AllFragment"
-        android:label="@string/menu_gallery"
+        android:label="All"
         tools:layout="@layout/fragment_all_news" >
         <action
             android:id="@+id/action_nav_gallery_to_newsDetailFragment"
             app:destination="@id/newsDetailFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.tphtwe.newswide.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.tphtwe.newswide.ui.detail.DetailFragment"
@@ -46,7 +47,7 @@
         >
         <action
             android:id="@+id/action_newsDetailFragment_to_nav_gallery"
-            app:popUpTo="@id/nav_gallery" />
+            app:popUpTo="@id/nav_all" />
         <argument
             android:name="image"
             app:argType="string" />
