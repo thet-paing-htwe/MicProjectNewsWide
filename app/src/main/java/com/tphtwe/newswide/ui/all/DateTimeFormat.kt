@@ -57,7 +57,7 @@ fun DateToTimeFormat(oldstringDate: String?): String? {
 fun getFormatedNumber(count: Long): String {
     if (count < 1000) return "" + count
     val exp = (ln(count.toDouble()) / ln(1000.0)).toInt()
-    return String.format("%.1f %c", count / 1000.0.pow(exp.toDouble()), "KMGTPE"[exp - 1])
+    return String.format("%.1f %c", count / 1000.0.pow(exp.toDouble()), "KMBTPE"[exp - 1])
 }
 fun percentage(current:Double,total:Double):String{
     var percent:Double=(current/total)*100.0

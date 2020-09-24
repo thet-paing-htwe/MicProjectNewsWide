@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import com.tphtwe.newswide.R
+import com.tphtwe.newswide.ui.all.getFormatedNumber
 import com.tphtwe.newswide.ui.all.percentage
 import kotlinx.android.synthetic.main.fragment_detail.*
 import java.text.NumberFormat
@@ -33,6 +34,7 @@ class DetailFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar!!.hide()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
@@ -47,6 +49,14 @@ class DetailFragment : Fragment() {
                 } else {
                     mildTxt = NumberFormat.getNumberInstance(Locale.US).format(mild)
                 }
+                total.text="Total"
+
+                total.text="Total"
+                today.text="Today"
+                active.text="Active"
+                critical.text="Critical"
+                mildC.text="Mild"
+                rate.text="Rate"
 
                 var totAff:String= NumberFormat.getNumberInstance(Locale.US).format(it.cases)
                 var totDeath:String= NumberFormat.getNumberInstance(Locale.US).format(it.deaths)
@@ -56,6 +66,8 @@ class DetailFragment : Fragment() {
                 var newRec:String= NumberFormat.getNumberInstance(Locale.US).format(it.todayRecovered)
                 var active:String= NumberFormat.getNumberInstance(Locale.US).format(it.active)
                 var critical:String= NumberFormat.getNumberInstance(Locale.US).format(it.critical)
+                var population:String= NumberFormat.getNumberInstance(Locale.US).format(it.population)
+                var shortPopulation:String= getFormatedNumber((it.population).toLong())
 
                 var affRate:String= percentage((it.cases).toDouble(),(it.population).toDouble())
                 var recRate:String= percentage((it.recovered).toDouble(),(it.cases).toDouble())
@@ -70,19 +82,21 @@ class DetailFragment : Fragment() {
                 var rateMild:String= percentage((mild).toDouble(),(it.active).toDouble()).toString()
 
                 Picasso.get().load(it.countryInfo.flag).into(flagDetail)
+                populationTxt.text="Population --> $population"
+                shortPopulationTxt.text="Approximate --> $shortPopulation"
                 country.text = it.country
-                affectedT.text = "Affected.. ${totAff}"
-                recoveredT.text = "Recovered.. ${totRec}"
-                deathsT.text = "Deaths.. ${totDeath}"
-                affectedN.text = "Affected.. ${newAff}"
-                deathsN.text = "Deaths.. ${newDeath}"
-                recoveredN.text = "Recovered.. ${newRec}"
+                affectedT.text = "Cases --> ${totAff}"
+                recoveredT.text = "Recovered --> ${totRec}"
+                deathsT.text = "Deaths --> ${totDeath}"
+                affectedN.text = "Cases --> +${newAff}"
+                deathsN.text = "Deaths --> +${newDeath}"
+                recoveredN.text = "Recovered --> +${newRec}"
                 activeValue.text = active
                 criticalValue.text = critical
                 mildValue.text = mildTxt
-                affectedR.text="According To Population..${affRate}% Affected"
-                recoveredR.text="According To Cases..${recRate}% Recovered"
-                deathsR.text="According To Cases..${deathRate}% Deaths"
+                affectedR.text="Based On Population --> ${affRate}% Affected"
+                recoveredR.text="Based On Cases --> ${recRate}% Recovered"
+                deathsR.text="Based On Cases --> ${deathRate}% Deaths"
                 activeRate.text="${actRate}%"
                 criticalRate.text="${rateCritical}%"
                 mildRate.text="${rateMild}%"

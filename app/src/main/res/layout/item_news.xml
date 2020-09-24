@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:id="@+id/mainConstraint">
             <androidx.cardview.widget.CardView
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="200dp"
                 android:layout_margin="5dp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     app:cardElevation="5dp"
                     app:cardCornerRadius="5dp"
-                    android:layout_gravity="bottom"
+                    android:layout_gravity="bottom|center"
                     android:id="@+id/dateCard"
                     android:layout_margin="10dp"
                     app:cardBackgroundColor="@color/materialBlue">
@@ -63,7 +63,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textStyle="bold"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:text="Android 11 system update from google privacy controls"
                 android:textColor="@color/black"
                 android:maxLines="3"
@@ -123,7 +123,8 @@
                 android:ellipsize="marquee"
                 app:layout_constraintTop_toBottomOf="@+id/imageCard"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toRightOf="parent"
+                android:paddingBottom="5dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

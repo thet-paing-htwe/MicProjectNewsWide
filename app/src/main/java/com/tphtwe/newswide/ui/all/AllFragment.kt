@@ -78,7 +78,7 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
         (activity as AppCompatActivity).setSupportActionBar(toolbar_all)
         (activity as AppCompatActivity).supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
         (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar!!.title = "Gallery"
+        (activity as AppCompatActivity).supportActionBar!!.title = "All News"
 
         currentDate = LocalDate.now().toString()
         date = currentDate

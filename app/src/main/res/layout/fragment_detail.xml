@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
     xmlns:android="http://schemas.android.com/apk/res/android" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/appBar"
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -21,311 +23,419 @@
                 android:id="@+id/toolbar_corona_detail"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-                app:layout_scrollFlags="scroll|enterAlways"
                 app:layout_constraintTop_toTopOf="parent"
-                app:titleTextColor="@color/white"/>
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+                app:titleTextColor="@color/white" />
         </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.detail.DetailFragment"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Turn On For Yesterday Result"
-            android:id="@+id/turnon"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/materialBlue"/>
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yesterday"
-            android:id="@+id/yesterday"
-            android:textColor="@color/materialBlue"
-            android:layout_gravity="center_horizontal"/>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            app:cardElevation="10dp"
-            app:cardCornerRadius="5dp"
-            android:layout_margin="10dp"
-            android:id="@+id/imgCard"
-            android:layout_gravity="center_horizontal"
-            android:foreground="?android:selectableItemBackground">
-
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginVertical="10dp"
-                android:scaleType="fitXY"
-                android:id="@+id/flagDetail"
-                android:foreground="?android:selectableItemBackground"/>
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="25dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialBlue"
-            android:id="@+id/country"
-            android:layout_marginBottom="10dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Total"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialBlue"
-            android:id="@+id/total"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialYellow"
-            android:id="@+id/affectedT" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialGreen"
-            android:id="@+id/recoveredT" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialRed"
-            android:id="@+id/deathsT"
-             />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="New"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialBlue"
-            android:id="@+id/recent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialYellow"
-            android:id="@+id/affectedN" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialGreen"
-            android:id="@+id/recoveredN" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialRed"
-            android:id="@+id/deathsN"
-            android:layout_marginBottom="15dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Active"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialBlue"
-            android:id="@+id/active" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialBlue"
-            android:id="@+id/activeValue"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialBlue"
-            android:id="@+id/activeRate"
-            android:layout_marginBottom="15dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            >
-
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="left">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Critical"
-                    android:textSize="20dp"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@color/materialRed"
-                    android:id="@+id/critical" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20dp"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@color/materialRed"
-                    android:id="@+id/criticalValue"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20dp"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:textColor="@color/materialRed"
-                    android:id="@+id/criticalRate"
-                    android:layout_marginBottom="15dp" />
-            </LinearLayout>
-
                 <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:context=".ui.detail.DetailFragment">
 
-                        <TextView
-                            android:id="@+id/mild"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="sans-serif-condensed-light"
-                            android:text="Mild"
-                            android:textColor="@color/materialYellow"
-                            android:textSize="20dp" />
-
-                        <TextView
-                            android:id="@+id/mildValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="sans-serif-condensed-light"
-                            android:textColor="@color/materialYellow"
-                            android:textSize="20dp" />
                     <TextView
-                        android:id="@+id/mildRate"
+                        android:id="@+id/turnon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Turn On For Yesterday Result"
+                        android:textColor="@color/materialBlue" />
+
+                    <Switch
+                        android:id="@+id/yesterday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Yesterday"
+                        android:textColor="@color/materialBlue"
+                        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/imgCard"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:foreground="?android:selectableItemBackground"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="10dp">
+
+                        <ImageView
+                            android:id="@+id/flagDetail"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_marginVertical="10dp"
+                            android:foreground="?android:selectableItemBackground"
+                            android:scaleType="fitXY" />
+                    </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="10dp"
+                    app:cardCornerRadius="5dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:foreground="?android:selectableItemBackground">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:textColor="@color/materialBlue"
+                        android:textSize="25dp" />
+                    <TextView
+                        android:id="@+id/populationTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:textColor="@color/materialBlue"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/shortPopulationTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:textColor="@color/materialBlue"
+                        android:textSize="20dp" />
+                </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="5dp"
+                        android:foreground="?android:selectableItemBackground"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/total"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:text=""
+                                android:textColor="@color/materialBlue"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/affectedT"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialYellow"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/recoveredT"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialGreen"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/deathsT"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialRed"
+                                android:layout_marginBottom="5dp"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="5dp"
+                        android:foreground="?android:selectableItemBackground"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/today"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:text=""
+                                android:textColor="@color/materialBlue"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/affectedN"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialYellow"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/recoveredN"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialGreen"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/deathsN"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialRed"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="10dp"
+                    app:cardCornerRadius="5dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:foreground="?android:selectableItemBackground">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/active"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text=""
+                        android:textColor="@color/materialBlue"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/activeValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:textColor="@color/materialBlue"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/activeRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:textColor="@color/materialBlue"
+                        android:textSize="20dp" />
+                </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="10dp"
+                    app:cardCornerRadius="5dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:foreground="?android:selectableItemBackground">
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="15dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/critical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:text=""
+                                android:textColor="@color/materialRed"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/criticalValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialRed"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/criticalRate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialRed"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/mildC"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:text=""
+                                android:textColor="@color/materialYellow"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/mildValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialYellow"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/mildRate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:textColor="@color/materialYellow"
+                                android:textSize="20dp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="10dp"
+                    app:cardCornerRadius="5dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:foreground="?android:selectableItemBackground">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text=""
+                        android:textColor="@color/materialBlue"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/affectedR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:fontFamily="sans-serif-condensed-light"
                         android:textColor="@color/materialYellow"
                         android:textSize="20dp" />
 
+                    <TextView
+                        android:id="@+id/recoveredR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:textColor="@color/materialGreen"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/deathsR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:textColor="@color/materialRed"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="20dp" />
                 </LinearLayout>
-        </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Rate"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialBlue"
-            android:id="@+id/Rate"
-            />
+                </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialYellow"
-            android:id="@+id/affectedR" />
+                </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialGreen"
-            android:id="@+id/recoveredR" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/materialRed"
-            android:id="@+id/deathsR"
-            />
-
-    </LinearLayout>
                 <ProgressBar
+                    android:id="@+id/detailProgress"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:id="@+id/detailProgress"/>
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
+                    android:id="@+id/detailError"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:text=""
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:id="@+id/detailError"
-                    android:text=""/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
