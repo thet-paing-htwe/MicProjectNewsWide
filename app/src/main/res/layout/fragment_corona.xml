@@ -199,7 +199,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/headerCard"
-                android:layoutAnimation="@anim/layout_animation"/>
+                />
 
                 <ProgressBar
                     android:layout_width="40dp"

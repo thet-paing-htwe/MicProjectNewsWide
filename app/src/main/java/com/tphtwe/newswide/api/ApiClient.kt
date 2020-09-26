@@ -15,7 +15,6 @@ class ApiClient {
     val BASE_All_News="https://newsapi.org/v2/"
     //Vaccine Tracker
     val BASE_Vaccine="https://corona.lmao.ninja/v3/covid-19/"
-
     var apiInterface:ApiInterface
     var apiInterface_allNews:ApiInterface
     var apiInterface_vaccine:ApiInterface

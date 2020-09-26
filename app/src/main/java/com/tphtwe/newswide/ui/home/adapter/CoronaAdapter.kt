@@ -4,13 +4,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.tphtwe.newswide.R
 import com.tphtwe.newswide.model.AllCountryItem
 import com.tphtwe.newswide.ui.all.getFormatedNumber
+import kotlinx.android.synthetic.main.fragment_corona.*
 import kotlinx.android.synthetic.main.item_corona_country.view.*
 
 class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountryItem>()) :
@@ -35,7 +38,6 @@ class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountry
         lateinit var allCountryItem2: AllCountryItem
         fun bind(allCountryItem: AllCountryItem) {
             this.allCountryItem2 = allCountryItem
-
 
             Picasso.get().load(allCountryItem.countryInfo.flag).into(itemView.flagValue)
             itemView.nameValue.text = allCountryItem.country
@@ -64,6 +66,7 @@ class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountry
                 itemView.newRec.visibility = View.VISIBLE
                 itemView.newRec.text = "+${getFormatedNumber(allCountryItem.todayRecovered.toLong())}"
             }
+            itemView.itemConst.animation= AnimationUtils.loadAnimation(itemView.context,R.anim.left_to_right_anim)
 
         }
 

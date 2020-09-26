@@ -62,6 +62,12 @@ class VaccineAdapter(var listVaccine: List<Data> = ArrayList<Data>()) :
                     itemView.less.visibility=View.GONE
                     textanimation(itemView.details)                }
             }
+            itemView.phaseCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.left_to_right_anim)
+            itemView.nameCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.right_to_left_anim)
+            itemView.mechCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.left_to_right_anim)
+            itemView.sponCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.right_to_left_anim)
+            itemView.instCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.left_to_right_anim)
+            itemView.detailCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.right_to_left_anim)
 
 
         }

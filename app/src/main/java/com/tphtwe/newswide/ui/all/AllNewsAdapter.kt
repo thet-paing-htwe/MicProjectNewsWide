@@ -3,6 +3,7 @@ package com.tphtwe.newswide.ui.all
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.tphtwe.newswide.R
@@ -34,6 +35,13 @@ class AllNewsAdapter(var listArticle:List<Article> = ArrayList<Article>()) :Recy
             itemView.date.text= dateFormat(article.publishedAt)
             itemView.ago.text= DateToTimeFormat(article.publishedAt)
             itemView.description.text=article.description
+            itemView.imageCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.left_to_right_anim)
+            itemView.title.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.right_to_left_anim)
+            itemView.source.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.right_to_left_anim)
+            itemView.author.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.right_to_left_anim)
+            itemView.ago.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.right_to_left_anim)
+            itemView.description.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.bottom_to_up_anim)
+
         }
 
         override fun onClick(view: View?) {

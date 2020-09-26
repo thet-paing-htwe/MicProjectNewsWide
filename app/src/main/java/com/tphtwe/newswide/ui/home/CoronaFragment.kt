@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.animation.AnimationUtils
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -50,10 +51,14 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
         coronaViewModel = ViewModelProvider(this).get(CoronaViewModel::class.java)
         coronaAdapter = CoronaAdapter()
         coronaAdapter.setOnClickListener(this)
+        var animate=AnimationUtils.loadAnimation(requireContext(),R.anim.fade_in)
+        coronaRecycler.animation=animate
+        animate.duration=500
         coronaRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = coronaAdapter
         }
+
         observeViewModel()
     }
 
