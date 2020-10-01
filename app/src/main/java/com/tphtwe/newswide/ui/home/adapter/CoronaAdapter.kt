@@ -1,26 +1,27 @@
 package com.tphtwe.newswide.ui.corona.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.tphtwe.newswide.R
 import com.tphtwe.newswide.model.AllCountryItem
 import com.tphtwe.newswide.ui.all.getFormatedNumber
-import kotlinx.android.synthetic.main.fragment_corona.*
 import kotlinx.android.synthetic.main.item_corona_country.view.*
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.coroutineContext
 
 class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountryItem>()) :
     RecyclerView.Adapter<CoronaAdapter.CoronaViewHolder>(), Filterable {
     var clickListener: ClickListener? = null
     var countryFilterList: List<AllCountryItem>
-
     init {
         countryFilterList = listCountry
     }
@@ -34,18 +35,16 @@ class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountry
         init {
             itemView.setOnClickListener(this)
         }
-
         lateinit var allCountryItem2: AllCountryItem
         fun bind(allCountryItem: AllCountryItem) {
             this.allCountryItem2 = allCountryItem
-
             Picasso.get().load(allCountryItem.countryInfo.flag).into(itemView.flagValue)
             itemView.nameValue.text = allCountryItem.country
             itemView.TaffectedValue.text = getFormatedNumber(allCountryItem.cases.toLong())
             itemView.TrecoveredValue.text = getFormatedNumber(allCountryItem.recovered.toLong())
             itemView.TdeathsValue.text = getFormatedNumber(allCountryItem.deaths.toLong())
             itemView.num.text = ((adapterPosition) + 1).toString()
-
+            var lastPosition = -1
             if (allCountryItem.todayCases <= 0) {
                 itemView.newAff.visibility = View.GONE
             } else {
@@ -57,16 +56,22 @@ class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountry
                 itemView.newDeaths.visibility = View.GONE
             } else {
                 itemView.newDeaths.visibility = View.VISIBLE
-                itemView.newDeaths.text = "+${getFormatedNumber(allCountryItem.todayDeaths.toLong())}"
+                itemView.newDeaths.text =
+                    "+${getFormatedNumber(allCountryItem.todayDeaths.toLong())}"
             }
 
             if (allCountryItem.todayRecovered <= 0) {
                 itemView.newRec.visibility = View.GONE
             } else {
                 itemView.newRec.visibility = View.VISIBLE
-                itemView.newRec.text = "+${getFormatedNumber(allCountryItem.todayRecovered.toLong())}"
+                itemView.newRec.text =
+                    "+${getFormatedNumber(allCountryItem.todayRecovered.toLong())}"
             }
-            itemView.itemConst.animation= AnimationUtils.loadAnimation(itemView.context,R.anim.left_to_right_anim)
+            if (adapterPosition > lastPosition) {
+                itemView.itemConst.animation =
+                    AnimationUtils.loadAnimation(itemView.context, R.anim.left_to_right_anim2)
+                lastPosition=adapterPosition
+            }
 
         }
 
@@ -98,6 +103,8 @@ class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountry
 
     override fun onBindViewHolder(holder: CoronaViewHolder, position: Int) {
         holder.bind(listCountry[position])
+
+
     }
 
     interface ClickListener {

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tphtwe.newswide.api.ApiClient
 import com.tphtwe.newswide.model.AllCountry
+import com.tphtwe.newswide.model.coroGlobal.CoronaGlobal
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,6 +13,7 @@ import retrofit2.Response
 class CoronaViewModel : ViewModel() {
 
    private var result:MutableLiveData<AllCountry> = MutableLiveData()
+    private var result_global:MutableLiveData<CoronaGlobal> = MutableLiveData()
     private var errorMessage:MutableLiveData<String> = MutableLiveData()
     private var progressBar:MutableLiveData<Boolean> = MutableLiveData()
     private var errorStatus:MutableLiveData<Boolean> = MutableLiveData()
@@ -20,6 +22,7 @@ class CoronaViewModel : ViewModel() {
     fun getErrorStatus():LiveData<Boolean> = errorStatus
     fun getProgress():LiveData<Boolean> = progressBar
     fun getResult() : LiveData<AllCountry> = result
+    fun getResultGlobal():LiveData<CoronaGlobal> = result_global
 
     fun loadResult(sort:String){
         var apiClient=ApiClient()
@@ -39,6 +42,20 @@ class CoronaViewModel : ViewModel() {
                 progressBar.value=false
             }
 
+        })
+    }
+
+    fun loadResultGlobal(yesterdayG:Boolean){
+        var apiclient2=ApiClient()
+        var call=apiclient2.getGlobals(yesterdayG)
+        call.enqueue(object :Callback<CoronaGlobal>{
+            override fun onFailure(call: Call<CoronaGlobal>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<CoronaGlobal>, response: Response<CoronaGlobal>) {
+                result_global.value=response.body()
+            }
         })
     }
 }

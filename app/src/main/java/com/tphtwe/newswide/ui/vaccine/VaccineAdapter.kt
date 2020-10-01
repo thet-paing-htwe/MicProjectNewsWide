@@ -1,7 +1,6 @@
 package com.tphtwe.newswide.ui.vaccine
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.tphtwe.newswide.model.vaccine.Data
 import com.tphtwe.newswide.ui.all.clearText
 import com.tphtwe.newswide.ui.all.textanimation
 import kotlinx.android.synthetic.main.item_vaccine.view.*
-import kotlinx.coroutines.withContext
 
 class VaccineAdapter(var listVaccine: List<Data> = ArrayList<Data>()) :
     RecyclerView.Adapter<VaccineAdapter.VaccineViewHolder>() {
@@ -22,7 +20,7 @@ class VaccineAdapter(var listVaccine: List<Data> = ArrayList<Data>()) :
             itemView.no.text=(adapterPosition+1).toString()
             itemView.phase.text = "Trial Phase\n${(data.trialPhase)}"
 
-            itemView.prjName.text = "Trial Name\n${(data.candidate)}"
+            itemView.prjName.text = "Trial Name\n${(data.tradeName[0])}"
             var listSponser = ArrayList<String>()
             for (element in data.sponsors) {
                 listSponser.add(element)
@@ -30,11 +28,11 @@ class VaccineAdapter(var listVaccine: List<Data> = ArrayList<Data>()) :
             itemView.sponser.text = "Sponsors\n${clearText(listSponser.toString())}"
 
             var listInstitution = ArrayList<String>()
-            for (element1 in data.institutions) {
+            for (element1 in data.developerResearcher) {
                 listInstitution.add(element1)
             }
             itemView.institution.text = "Institutions\n${clearText(listInstitution.toString())}"
-            itemView.mechanism.text = "Mechanism\n${clearText(data.mechanism)}"
+            itemView.mechanism.text = "Medication Class\n${clearText(data.medicationClass)}"
             itemView.details.text = clearText(data.details)
             itemView.details.maxLines = 3
             itemView.more.visibility=View.VISIBLE
@@ -62,6 +60,9 @@ class VaccineAdapter(var listVaccine: List<Data> = ArrayList<Data>()) :
                     itemView.less.visibility=View.GONE
                     textanimation(itemView.details)                }
             }
+            itemView.lastUpdate.text=data.lastUpdate
+            itemView.no.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.left_to_right_anim)
+            itemView.lastUpdate.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.right_to_left_anim)
             itemView.phaseCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.left_to_right_anim)
             itemView.nameCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.right_to_left_anim)
             itemView.mechCard.animation = AnimationUtils.loadAnimation(itemView.context,R.anim.left_to_right_anim)

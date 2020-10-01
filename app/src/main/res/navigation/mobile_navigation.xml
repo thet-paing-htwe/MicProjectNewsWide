@@ -11,6 +11,9 @@
         android:label="Corona Tracker"
         tools:layout="@layout/fragment_corona" >
         <action
+            android:id="@+id/action_nav_corona_to_globalDetailFragment"
+            app:destination="@id/globalDetailFragment" />
+        <action
             android:id="@+id/action_nav_corona_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
@@ -37,8 +40,7 @@
         android:label="DetailFragment" >
         <argument
             android:name="name"
-            app:argType="string"
-            android:defaultValue="Myanmar" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/newsDetailFragment"
@@ -67,4 +69,32 @@
             android:name="web"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/globalDetailFragment"
+        android:name="com.tphtwe.newswide.ui.detailGlobal.GlobalDetailFragment"
+        android:label="GlobalDetailFragment" />
+    <fragment
+        android:id="@+id/nav_sources"
+        android:name="com.tphtwe.newswide.ui.source.SourceFragment"
+        android:label="fragment_source"
+        tools:layout="@layout/fragment_source" >
+        <action
+            android:id="@+id/action_nav_sources_to_sourceNewsFragment"
+            app:destination="@id/sourceNewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sourceNewsFragment"
+        android:name="com.tphtwe.newswide.ui.source.SourceNewsFragment"
+        android:label="SourceNewsFragment" >
+        <argument
+            android:name="sourceId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_sourceNewsFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/todayCountryFragment"
+        android:name="com.tphtwe.newswide.ui.detail.TodayCountryFragment"
+        android:label="TodayCountryFragment" />
 </navigation>

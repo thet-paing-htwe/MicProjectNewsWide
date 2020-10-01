@@ -14,17 +14,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar_all"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_source_news"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_constraintTop_toTopOf="parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutSource"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -56,7 +56,7 @@
                 app:cardElevation="15dp">
 
                 <ImageView
-                    android:id="@+id/dateBtn"
+                    android:id="@+id/dateBtnSource"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:foregroundGravity="center"
@@ -70,10 +70,10 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/allNewsRecycler"
+            android:id="@+id/sourceNewsRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-             />
+            />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

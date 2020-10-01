@@ -1,4 +1,4 @@
-package com.tphtwe.newswide.ui.all
+package com.tphtwe.newswide.ui.source
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -6,57 +6,47 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.navigation.NavigationView
 import com.tphtwe.newswide.R
 import com.tphtwe.newswide.model.allNews.Article
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_all_news.*
+import com.tphtwe.newswide.ui.all.AllFragmentDirections
+import com.tphtwe.newswide.ui.all.AllNewsAdapter
+import com.tphtwe.newswide.ui.all.AllViewModel
+import com.tphtwe.newswide.ui.all.dateFormat2
+import kotlinx.android.synthetic.main.fragment_source_news.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
-class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
-//    private var searchView: SearchView? = null
-//    private var queryTextListener: SearchView.OnQueryTextListener? = null
 
-    private lateinit var allViewModel: AllViewModel
+class SourceNewsFragment : Fragment(),AllNewsAdapter.ClickListener {
+   lateinit var allViewModel: AllViewModel
     lateinit var allNewsAdapter: AllNewsAdapter
     lateinit var currentDate: String
     lateinit var date: String
     lateinit var date2:String
-    var queryText: String = "vaccine"
-
+    lateinit var sourceId:String
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_all_news, container, false)
-        return root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity).supportActionBar!!.hide()
-
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_source_news, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         allViewModel = ViewModelProvider(this).get(AllViewModel::class.java)
         allNewsAdapter = AllNewsAdapter()
         allNewsAdapter.setOnClickListener(this)
-        allNewsRecycler.apply {
+        sourceNewsRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = allNewsAdapter
         }
@@ -65,8 +55,8 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
     }
 
     fun observeViewModel() {
-        allViewModel.getResult().observe(
-            viewLifecycleOwner, Observer {
+        allViewModel.getResultSource().observe(
+            viewLifecycleOwner, androidx.lifecycle.Observer {
                 allNewsAdapter.updateAllNews(it.articles)
             }
         )
@@ -79,27 +69,27 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
     override fun onResume() {
         super.onResume()
 
-        (activity as AppCompatActivity).setSupportActionBar(toolbar_all)
-        (activity as AppCompatActivity).supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar_source_news)
         (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar!!.title = "All News"
+        (activity as AppCompatActivity).supportActionBar!!.title = "News"
 
-        var dateFormat:SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
+        currentDate = LocalDate.now().toString()
+        date = currentDate
+        var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
         var cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         date2=dateFormat.format(cal.time)
 
-        currentDate = LocalDate.now().toString()
-        date = currentDate
-        allViewModel.loadResult(queryText, date, date2)
-
+        var messageArgs=arguments?.let { SourceNewsFragmentArgs.fromBundle(it) }
+        sourceId=messageArgs!!.sourceId
+        allViewModel.loadResultSource(sourceId,date,date2)
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         c.add(Calendar.DATE,-31)
 
-        dateBtn.setOnClickListener {
+        dateBtnSource.setOnClickListener {
             val dpd = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
@@ -108,7 +98,7 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
                     var formatDate= dateFormat2(selectedDate)
                     date = formatDate
                     Log.d("date", date.toString())
-                    allViewModel.loadResult(queryText, date, date)
+                    allViewModel.loadResultSource(sourceId, date, date)
                 },
                 year,
                 month,
@@ -118,35 +108,7 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
             dpd.datePicker.minDate=c.timeInMillis
             dpd.show()
         }
-
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-        inflater.inflate(R.menu.main, menu)
-        val search = menu.findItem(R.id.actionSearch)
-        val searchView = search.actionView as SearchView
-        searchView.queryHint = "Search"
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                date=currentDate
-                Log.d("submit", query!!.toString())
-                queryText = query
-                allViewModel.loadResult(queryText!!, date, date)
-                observeViewModel()
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-
-        })
-
-    }
-
-
 
     override fun click(article: Article) {
         var authorTxt = ""
@@ -163,7 +125,7 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
             img = article.urlToImage
         }
 
-        var action = AllFragmentDirections.actionNavGalleryToNewsDetailFragment(
+        var action = SourceNewsFragmentDirections.actionSourceNewsFragmentToNewsDetailFragment(
             img,
             article.title,
             article.source.name,
@@ -174,5 +136,8 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
         findNavController().navigate(action)
     }
 
-
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
 }

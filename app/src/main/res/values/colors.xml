@@ -10,4 +10,5 @@
     <color name="materialGreen">#00c853</color>
     <color name="white">#ffffff</color>
     <color name="gray">#A9A9A9</color>
+    <color name="dullBlue">#37474F</color>
 </resources>

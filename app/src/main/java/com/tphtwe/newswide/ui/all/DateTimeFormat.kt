@@ -72,7 +72,7 @@ fun clearText(text:String):String{
             "&quot;")||(cleanText.contains("[]")|| (cleanText).contains("&nbsp") || (cleanText).contains(",&nbsp")
                 || (cleanText).contains("&rsquo")|| (cleanText).contains("Outcomes:") || (cleanText).contains("Funding:")
                 || (cleanText).contains("Status:") || (cleanText).contains("Study Design:") || (cleanText).contains("Study Designs:")
-                || (cleanText).contains("&mu;"))
+                || (cleanText).contains("&mu;")||(cleanText).contains("Regulatory Actions:")||(cleanText).contains("Trials:"))
     ) {
         cleanText = cleanText.replace("&rsquo;s", "")
         cleanText = cleanText.replace("&ldquo;", "")
@@ -89,6 +89,8 @@ fun clearText(text:String):String{
         cleanText = cleanText.replace("Status:", "\n\nStatus:")
         cleanText = cleanText.replace("Study Design:", "\n\nStudy Design:")
         cleanText = cleanText.replace("Study Designs:", "\n\nStudy Designs:")
+        cleanText = cleanText.replace("Regulatory actions:", "\n\nRegulatory actions:")
+        cleanText = cleanText.replace("Trials:", "\n\nTrials:")
         cleanText = cleanText.replace("[]", "No information Provided")
     }
     return cleanText

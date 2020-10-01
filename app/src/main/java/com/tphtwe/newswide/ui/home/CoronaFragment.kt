@@ -1,5 +1,6 @@
 package com.tphtwe.newswide.ui.home
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tphtwe.newswide.R
 import com.tphtwe.newswide.model.AllCountryItem
+import com.tphtwe.newswide.ui.all.getFormatedNumber
 import com.tphtwe.newswide.ui.corona.adapter.CoronaAdapter
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_all_news.*
@@ -63,6 +65,7 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
     }
 
 
+    @SuppressLint("SetTextI18n")
     fun observeViewModel() {
         coronaViewModel.getResult().observe(
             viewLifecycleOwner, Observer {
@@ -84,6 +87,14 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
                         })
                 }
             })
+
+        coronaViewModel.getResultGlobal().observe(
+            viewLifecycleOwner, Observer {
+                Taffected.text= "${getFormatedNumber((it.cases).toLong())}\nAffected"
+                Tdeaths.text="${getFormatedNumber((it.deaths).toLong())}\nDeaths"
+                Trecovered.text="${getFormatedNumber((it.recovered).toLong())}\nRecovered"
+            }
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -98,6 +109,7 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
         (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar!!.title="Corona Tracker"
 
+        coronaViewModel.loadResultGlobal(false)
         coronaViewModel.loadResult("cases")
 
         super.onResume()
@@ -117,7 +129,6 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
                 }
             })
 
-//        }
 
 
 
@@ -154,6 +165,9 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
 
             })
         }
+        headerCard.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_corona_to_globalDetailFragment)
+        }
 
     }
 //    fun radio_button_click(view: View) {
@@ -175,7 +189,8 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
 
 
 override fun click(allCountryItem: AllCountryItem) {
-    var action = CoronaFragmentDirections.actionNavCoronaToDetailFragment(allCountryItem.country)
+    var action=CoronaFragmentDirections.actionNavCoronaToDetailFragment(allCountryItem.country)
     findNavController().navigate(action)
+
 }
 }

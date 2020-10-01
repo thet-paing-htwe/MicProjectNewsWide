@@ -2,6 +2,7 @@ package com.tphtwe.newswide.api
 
 import com.tphtwe.newswide.model.AllCountry
 import com.tphtwe.newswide.model.allNews.All
+import com.tphtwe.newswide.model.coroGlobal.CoronaGlobal
 import com.tphtwe.newswide.model.detail.CoronaDetail
 import com.tphtwe.newswide.model.vaccine.Vaccine
 import retrofit2.Call
@@ -10,6 +11,12 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiInterface {
+    //corona global
+    @GET("all")
+    fun getGlobal(
+        @Query("yesterday")yesterdayG:Boolean
+    ):Call<CoronaGlobal>
+
     //corona all country view
     @GET("countries")
     fun getCountries(
@@ -34,8 +41,20 @@ interface ApiInterface {
         @Query("to")date2:String
 
     ):Call<All>
+    //news all source
+    @GET("everything")
+    fun getSource(
+        @Query("apiKey")apiKey:String,
+        @Query("sources")source:String,
+        @Query("sortBy")sortBy:String,
+        @Query("pageSize")size:Int,
+        @Query("from")date1:String,
+        @Query("to")date2:String
+
+    ):Call<All>
+
     //vaccine tracker
-    @GET("vaccine")
+    @GET("therapeutics")
     fun  getVaccineInfo():Call<Vaccine>
 
 }

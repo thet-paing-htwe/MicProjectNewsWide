@@ -1,15 +1,18 @@
 package com.tphtwe.newswide.ui.detailNews
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import com.tphtwe.newswide.R
 import com.tphtwe.newswide.ui.all.DateToTimeFormat
 import kotlinx.android.synthetic.main.fragment_detail_news.*
-import kotlin.math.abs
 
 
 class NewsDetailFragment : Fragment() {
@@ -31,6 +34,7 @@ class NewsDetailFragment : Fragment() {
 
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var messageArgs = arguments?.let { NewsDetailFragmentArgs.fromBundle(it) }
@@ -42,7 +46,24 @@ class NewsDetailFragment : Fragment() {
         var url = messageArgs?.web
 
 
+
+        webView.settings.setPluginState(WebSettings.PluginState.ON)
+        webView.settings.mediaPlaybackRequiresUserGesture=true
+        webView.settings.javaScriptEnabled=true
+        webView.webChromeClient = WebChromeClient()
+//        webView.setInitialScale(1);
+        webView.settings.loadWithOverviewMode = true;
+        webView.settings.useWideViewPort = true;
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, rUrl: String): Boolean {
+                // do your handling codes here, which url is the requested url
+                // probably you need to open that url rather than redirect:
+                view.loadUrl(rUrl)
+                return false // then it is not handled by default action
+            }
+        }
         webView.loadUrl(url!!)
+
         Picasso.get().load(image).placeholder(R.color.materialGreen).into(collapseImage)
         newsTitle?.text = title
         newsSource?.text = source

@@ -1,11 +1,11 @@
 package com.tphtwe.newswide.model.vaccine
 
 data class Data(
-    val candidate: String,
     val details: String,
-    val mechanism: String,
-    val institutions: List<String>,
+    val developerResearcher: List<String>,
+    val lastUpdate: String,
+    val medicationClass: String,
     val sponsors: List<String>,
-    val trialPhase: String,
-    var expand:Boolean
+    val tradeName: List<String>,
+    val trialPhase: String
 )
