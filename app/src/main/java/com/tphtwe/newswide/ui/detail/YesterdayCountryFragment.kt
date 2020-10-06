@@ -120,7 +120,6 @@ class YesterdayCountryFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         detailViewModel.loadResult(DetailFragment.name,true)
     }
     }

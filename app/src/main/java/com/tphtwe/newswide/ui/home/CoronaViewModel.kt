@@ -17,10 +17,12 @@ class CoronaViewModel : ViewModel() {
     private var errorMessage:MutableLiveData<String> = MutableLiveData()
     private var progressBar:MutableLiveData<Boolean> = MutableLiveData()
     private var errorStatus:MutableLiveData<Boolean> = MutableLiveData()
+    private var refresh:MutableLiveData<Boolean> = MutableLiveData()
 
     fun getErrorMessage():LiveData<String> = errorMessage
     fun getErrorStatus():LiveData<Boolean> = errorStatus
     fun getProgress():LiveData<Boolean> = progressBar
+    fun getRefresh():LiveData<Boolean> = refresh
     fun getResult() : LiveData<AllCountry> = result
     fun getResultGlobal():LiveData<CoronaGlobal> = result_global
 
@@ -32,7 +34,7 @@ class CoronaViewModel : ViewModel() {
                 errorMessage.value=t.toString()
                 errorStatus.value=true
                 progressBar.value=false
-
+                refresh.value=false
 
             }
 
@@ -40,6 +42,7 @@ class CoronaViewModel : ViewModel() {
                 result.value=response.body()
                 errorStatus.value=false
                 progressBar.value=false
+                refresh.value=false
             }
 
         })

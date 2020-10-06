@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_corona"
         android:name="com.tphtwe.newswide.ui.home.CoronaFragment"
-        android:label="Corona Tracker"
+        android:label=""
         tools:layout="@layout/fragment_corona" >
         <action
             android:id="@+id/action_nav_corona_to_globalDetailFragment"
@@ -23,21 +23,21 @@
     <fragment
         android:id="@+id/nav_vaccine"
         android:name="com.tphtwe.newswide.ui.vaccine.VaccineTrackerFragment"
-        android:label="@string/menu_slideshow"
+        android:label=""
         tools:layout="@layout/fragment_vaccine_tracker" />
     <fragment
         android:id="@+id/nav_all"
         android:name="com.tphtwe.newswide.ui.all.AllFragment"
-        android:label="All"
+        android:label=""
         tools:layout="@layout/fragment_all_news" >
         <action
-            android:id="@+id/action_nav_gallery_to_newsDetailFragment"
+            android:id="@+id/action_nav_all_to_newsDetailFragment"
             app:destination="@id/newsDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.tphtwe.newswide.ui.detail.DetailFragment"
-        android:label="DetailFragment" >
+        android:label="" >
         <argument
             android:name="name"
             app:argType="string" />
@@ -45,11 +45,8 @@
     <fragment
         android:id="@+id/newsDetailFragment"
         android:name="com.tphtwe.newswide.ui.detailNews.NewsDetailFragment"
-        android:label="NewsDetailFragment"
+        android:label=""
         >
-        <action
-            android:id="@+id/action_newsDetailFragment_to_nav_gallery"
-            app:popUpTo="@id/nav_all" />
         <argument
             android:name="image"
             app:argType="string" />
@@ -72,11 +69,11 @@
     <fragment
         android:id="@+id/globalDetailFragment"
         android:name="com.tphtwe.newswide.ui.detailGlobal.GlobalDetailFragment"
-        android:label="GlobalDetailFragment" />
+        android:label="" />
     <fragment
         android:id="@+id/nav_sources"
         android:name="com.tphtwe.newswide.ui.source.SourceFragment"
-        android:label="fragment_source"
+        android:label=""
         tools:layout="@layout/fragment_source" >
         <action
             android:id="@+id/action_nav_sources_to_sourceNewsFragment"
@@ -85,7 +82,7 @@
     <fragment
         android:id="@+id/sourceNewsFragment"
         android:name="com.tphtwe.newswide.ui.source.SourceNewsFragment"
-        android:label="SourceNewsFragment" >
+        android:label="" >
         <argument
             android:name="sourceId"
             app:argType="string" />
@@ -94,7 +91,24 @@
             app:destination="@id/newsDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/todayCountryFragment"
-        android:name="com.tphtwe.newswide.ui.detail.TodayCountryFragment"
-        android:label="TodayCountryFragment" />
+        android:id="@+id/nav_category"
+        android:name="com.tphtwe.newswide.ui.category.CategoryListFragment"
+        android:label="" >
+        <action
+            android:id="@+id/action_nav_category_to_categoryNewsFragment"
+            app:destination="@id/categoryNewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryNewsFragment"
+        android:name="com.tphtwe.newswide.ui.category.CategoryNewsFragment"
+        android:label="" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_categoryNewsFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+
+
 </navigation>

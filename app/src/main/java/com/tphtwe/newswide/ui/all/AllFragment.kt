@@ -163,7 +163,7 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
             img = article.urlToImage
         }
 
-        var action = AllFragmentDirections.actionNavGalleryToNewsDetailFragment(
+        var action = AllFragmentDirections.actionNavAllToNewsDetailFragment(
             img,
             article.title,
             article.source.name,

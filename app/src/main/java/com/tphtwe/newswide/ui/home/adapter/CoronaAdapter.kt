@@ -1,11 +1,9 @@
-package com.tphtwe.newswide.ui.corona.adapter
+package com.tphtwe.newswide.ui.home.adapter
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Filter
 import android.widget.Filterable
@@ -15,8 +13,6 @@ import com.tphtwe.newswide.R
 import com.tphtwe.newswide.model.AllCountryItem
 import com.tphtwe.newswide.ui.all.getFormatedNumber
 import kotlinx.android.synthetic.main.item_corona_country.view.*
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.coroutineContext
 
 class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountryItem>()) :
     RecyclerView.Adapter<CoronaAdapter.CoronaViewHolder>(), Filterable {
@@ -67,11 +63,8 @@ class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountry
                 itemView.newRec.text =
                     "+${getFormatedNumber(allCountryItem.todayRecovered.toLong())}"
             }
-            if (adapterPosition > lastPosition) {
                 itemView.itemConst.animation =
                     AnimationUtils.loadAnimation(itemView.context, R.anim.left_to_right_anim2)
-                lastPosition=adapterPosition
-            }
 
         }
 

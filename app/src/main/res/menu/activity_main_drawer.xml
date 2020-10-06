@@ -18,6 +18,11 @@
             android:icon="@drawable/all"
             android:title="All" />
         <item
+            android:id="@+id/nav_category"
+            android:icon="@drawable/ic_category"
+            android:title="News Categories" />
+
+        <item
             android:id="@+id/nav_sources"
             android:icon="@drawable/ic_van"
             android:title="News Channels" />

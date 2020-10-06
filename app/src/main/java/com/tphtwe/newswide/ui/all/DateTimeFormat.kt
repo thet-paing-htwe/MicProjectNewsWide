@@ -1,7 +1,6 @@
 package com.tphtwe.newswide.ui.all
 
 import android.animation.ObjectAnimator
-import android.view.animation.Animation
 import android.widget.TextView
 import org.ocpsoft.prettytime.PrettyTime
 import java.math.RoundingMode
@@ -114,4 +113,16 @@ fun textanimation(tv: TextView) {
         else collapsedMaxLines
     )
     animation.setDuration(500).start()
+}
+
+fun getCountry(): String {
+    val locale = Locale.getDefault()
+    val country = locale.country.toString()
+    return country.toLowerCase()
+}
+
+fun getLanguage(): String {
+    val locale = Locale.getDefault()
+    val country = locale.language.toString()
+    return country.toLowerCase()
 }

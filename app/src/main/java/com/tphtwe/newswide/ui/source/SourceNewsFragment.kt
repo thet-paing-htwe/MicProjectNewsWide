@@ -26,7 +26,7 @@ import java.util.*
 
 
 class SourceNewsFragment : Fragment(),AllNewsAdapter.ClickListener {
-   lateinit var allViewModel: AllViewModel
+    lateinit var allViewModel: AllViewModel
     lateinit var allNewsAdapter: AllNewsAdapter
     lateinit var currentDate: String
     lateinit var date: String
@@ -42,6 +42,9 @@ class SourceNewsFragment : Fragment(),AllNewsAdapter.ClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar_source_news)
+        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar!!.title = "News"
         setHasOptionsMenu(true)
         allViewModel = ViewModelProvider(this).get(AllViewModel::class.java)
         allNewsAdapter = AllNewsAdapter()
@@ -68,10 +71,6 @@ class SourceNewsFragment : Fragment(),AllNewsAdapter.ClickListener {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
-
-        (activity as AppCompatActivity).setSupportActionBar(toolbar_source_news)
-        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar!!.title = "News"
 
         currentDate = LocalDate.now().toString()
         date = currentDate

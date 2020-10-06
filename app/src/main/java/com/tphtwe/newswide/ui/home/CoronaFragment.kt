@@ -3,14 +3,15 @@ package com.tphtwe.newswide.ui.home
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,12 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tphtwe.newswide.R
 import com.tphtwe.newswide.model.AllCountryItem
 import com.tphtwe.newswide.ui.all.getFormatedNumber
-import com.tphtwe.newswide.ui.corona.adapter.CoronaAdapter
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_all_news.*
+import com.tphtwe.newswide.ui.home.adapter.CoronaAdapter
 import kotlinx.android.synthetic.main.fragment_corona.*
 import kotlinx.android.synthetic.main.item_sort.*
 
+@Suppress("DEPRECATION")
 class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
     private lateinit var coronaViewModel: CoronaViewModel
     lateinit var coronaAdapter: CoronaAdapter
@@ -76,7 +76,7 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
             viewLifecycleOwner, Observer<Boolean> { isLoading ->
                 coronaProgress.visibility = if (isLoading) {
                     View.VISIBLE
-                } else {View.INVISIBLE }
+                } else {View.GONE }
             })
         coronaViewModel.getErrorStatus().observe(
             viewLifecycleOwner, Observer { status ->
@@ -87,6 +87,11 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
                         })
                 }
             })
+//        coronaViewModel.getRefresh().observe(
+//            viewLifecycleOwner, Observer <Boolean>{isRefreshing->
+//                swipeRefresh.isRefreshing = isRefreshing
+//            }
+//        )
 
         coronaViewModel.getResultGlobal().observe(
             viewLifecycleOwner, Observer {
@@ -95,6 +100,7 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
                 Trecovered.text="${getFormatedNumber((it.recovered).toLong())}\nRecovered"
             }
         )
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -113,7 +119,19 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
         coronaViewModel.loadResult("cases")
 
         super.onResume()
-
+        swipeRefresh.setOnRefreshListener {
+            coronaViewModel.loadResultGlobal(false)
+            coronaViewModel.loadResult("cases")
+            observeViewModel()
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                if (swipeRefresh.isRefreshing) {
+                    swipeRefresh.isRefreshing = false
+                }
+            }, 5000)
+        }
+//        swipeRefresh.setColorSchemeColors(R.color.materialGreen,R.color.materialBlue,R.color.materialRed);
+        swipeRefresh.setColorSchemeResources(R.color.materialGreen,R.color.materialBlue,R.color.materialRed)
             country_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     Log.d("tsubmit", query.toString())
@@ -128,10 +146,6 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
                     return false
                 }
             })
-
-
-
-
 
         sort.setOnClickListener {
             var sortDialog = LayoutInflater.from(context).inflate(R.layout.item_sort, null)

@@ -39,6 +39,12 @@ class TodayCountryFragment : Fragment() {
                     mildTxt = NumberFormat.getNumberInstance(Locale.US).format(mild)
                 }
 
+                total.text="Total"
+                today.text="Today"
+                active.text="Active"
+                critical.text="Critical"
+                mildC.text="Mild"
+                rate.text="Rate"
 
                 var totAff: String = NumberFormat.getNumberInstance(Locale.US).format(it.cases)
                 var totDeath: String = NumberFormat.getNumberInstance(Locale.US).format(it.deaths)
@@ -114,15 +120,6 @@ class TodayCountryFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        total.text="Total"
-        today.text="Today"
-        active.text="Active"
-        critical.text="Critical"
-        mildC.text="Mild"
-        rate.text="Rate"
-//        var messageArgs = arguments?.let { TodayCountryFragmentArgs.fromBundle(it) }
-//        var countryName = messageArgs!!.name
-
         detailViewModel.loadResult(DetailFragment.name,false)
     }
 }

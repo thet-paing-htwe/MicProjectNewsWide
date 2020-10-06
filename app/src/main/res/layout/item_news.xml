@@ -29,19 +29,35 @@
                 app:cardElevation="10dp"
                 app:cardCornerRadius="7dp"
                 android:id="@+id/imageCard">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@color/materialGreen"
                     android:id="@+id/newsImage"
+                    android:src="@color/materialGreen"
                     android:transitionName="newsImg"
                     android:scaleType="centerCrop"/>
+                <ProgressBar
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Small"
+                    android:id="@+id/imageProgress"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cardElevation="5dp"
                     app:cardCornerRadius="5dp"
-                    android:layout_gravity="bottom|center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     android:id="@+id/dateCard"
                     android:layout_margin="10dp"
                     app:cardBackgroundColor="@color/materialBlue">
@@ -55,6 +71,7 @@
                         android:padding="2dp"
                         />
                 </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
             <TextView
                 android:layout_width="0dp"

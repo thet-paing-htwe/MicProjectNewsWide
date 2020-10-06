@@ -4,6 +4,7 @@ import com.tphtwe.newswide.model.AllCountry
 import com.tphtwe.newswide.model.allNews.All
 import com.tphtwe.newswide.model.coroGlobal.CoronaGlobal
 import com.tphtwe.newswide.model.detail.CoronaDetail
+import com.tphtwe.newswide.model.headlinesNews.Headlines
 import com.tphtwe.newswide.model.vaccine.Vaccine
 import retrofit2.Call
 import retrofit2.http.GET
@@ -53,8 +54,18 @@ interface ApiInterface {
 
     ):Call<All>
 
+//new headlines
+    @GET("top-headlines")
+    fun getHedline(
+    @Query("apiKey")apiKey:String,
+    @Query("category")category:String,
+    @Query("sortBy")sortBy:String,
+    @Query("pageSize")size:Int,
+    @Query("language")lang:String,
+    @Query("country")country:String
+):Call<Headlines>
+
     //vaccine tracker
     @GET("therapeutics")
     fun  getVaccineInfo():Call<Vaccine>
-
 }
