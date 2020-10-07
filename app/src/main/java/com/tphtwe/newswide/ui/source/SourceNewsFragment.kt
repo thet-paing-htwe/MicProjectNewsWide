@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -15,16 +16,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tphtwe.newswide.R
 import com.tphtwe.newswide.model.allNews.Article
-import com.tphtwe.newswide.ui.all.AllFragmentDirections
-import com.tphtwe.newswide.ui.all.AllNewsAdapter
-import com.tphtwe.newswide.ui.all.AllViewModel
-import com.tphtwe.newswide.ui.all.dateFormat2
+import com.tphtwe.newswide.ui.all.*
+import kotlinx.android.synthetic.main.fragment_category_news.*
 import kotlinx.android.synthetic.main.fragment_source_news.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class SourceNewsFragment : Fragment(),AllNewsAdapter.ClickListener {
     lateinit var allViewModel: AllViewModel
     lateinit var allNewsAdapter: AllNewsAdapter
@@ -87,7 +87,17 @@ class SourceNewsFragment : Fragment(),AllNewsAdapter.ClickListener {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         c.add(Calendar.DATE,-31)
-
+        swipeRefreshSN.setOnRefreshListener {
+            allViewModel.loadResultSource(sourceId, date,date2)
+            observeViewModel()
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                if (swipeRefreshSN.isRefreshing) {
+                    swipeRefreshSN.isRefreshing = false
+                }
+            }, 5000)
+        }
+        swipeRefreshSN.setColorSchemeResources(R.color.materialGreen,R.color.materialBlue,R.color.materialRed)
         dateBtnSource.setOnClickListener {
             val dpd = DatePickerDialog(
                 requireContext(),
@@ -107,6 +117,7 @@ class SourceNewsFragment : Fragment(),AllNewsAdapter.ClickListener {
             dpd.datePicker.minDate=c.timeInMillis
             dpd.show()
         }
+
     }
 
     override fun click(article: Article) {

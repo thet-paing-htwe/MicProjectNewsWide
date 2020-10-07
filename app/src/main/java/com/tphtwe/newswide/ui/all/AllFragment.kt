@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -15,10 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.navigation.NavigationView
 import com.tphtwe.newswide.R
 import com.tphtwe.newswide.model.allNews.Article
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_all_news.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -98,7 +96,17 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         c.add(Calendar.DATE,-31)
-
+        swipeRefreshAN.setOnRefreshListener {
+            allViewModel.loadResult(queryText,date,date2)
+            observeViewModel()
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                if (swipeRefreshAN.isRefreshing) {
+                    swipeRefreshAN.isRefreshing = false
+                }
+            }, 5000)
+        }
+        swipeRefreshAN.setColorSchemeResources(R.color.materialGreen,R.color.materialBlue,R.color.materialRed)
         dateBtn.setOnClickListener {
             val dpd = DatePickerDialog(
                 requireContext(),
@@ -133,7 +141,7 @@ class AllFragment : Fragment(), AllNewsAdapter.ClickListener {
                 date=currentDate
                 Log.d("submit", query!!.toString())
                 queryText = query
-                allViewModel.loadResult(queryText!!, date, date)
+                allViewModel.loadResult(queryText!!, date, date2)
                 observeViewModel()
                 return true
             }

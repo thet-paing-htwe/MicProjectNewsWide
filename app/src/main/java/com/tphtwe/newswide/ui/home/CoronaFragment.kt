@@ -53,9 +53,6 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
         coronaViewModel = ViewModelProvider(this).get(CoronaViewModel::class.java)
         coronaAdapter = CoronaAdapter()
         coronaAdapter.setOnClickListener(this)
-        var animate=AnimationUtils.loadAnimation(requireContext(),R.anim.fade_in)
-        coronaRecycler.animation=animate
-        animate.duration=500
         coronaRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = coronaAdapter
@@ -130,7 +127,6 @@ class CoronaFragment : Fragment(), CoronaAdapter.ClickListener {
                 }
             }, 5000)
         }
-//        swipeRefresh.setColorSchemeColors(R.color.materialGreen,R.color.materialBlue,R.color.materialRed);
         swipeRefresh.setColorSchemeResources(R.color.materialGreen,R.color.materialBlue,R.color.materialRed)
             country_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {

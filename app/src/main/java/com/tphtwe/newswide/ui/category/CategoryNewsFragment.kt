@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -19,10 +20,10 @@ import com.tphtwe.newswide.ui.all.getCountry
 import com.tphtwe.newswide.ui.all.getLanguage
 import kotlinx.android.synthetic.main.fragment_category_news.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class CategoryNewsFragment : Fragment(),CategoryNewsAdapter.ClickListener{
     lateinit var categoryViewModel: CategoryViewModel
     lateinit var categoryNewsAdapter: CategoryNewsAdapter
@@ -72,14 +73,18 @@ class CategoryNewsFragment : Fragment(),CategoryNewsAdapter.ClickListener{
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
-        Log.d("language", getLanguage() )
-
-        var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
-        var cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        date2=dateFormat.format(cal.time)
-
         categoryViewModel.loadResultHead(cateId,getLanguage(), getCountry())
+        swipeRefreshCN.setOnRefreshListener {
+            categoryViewModel.loadResultHead(cateId, getLanguage(), getCountry())
+            observeViewModel()
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                if (swipeRefreshCN.isRefreshing) {
+                    swipeRefreshCN.isRefreshing = false
+                }
+            }, 5000)
+        }
+        swipeRefreshCN.setColorSchemeResources(R.color.materialGreen,R.color.materialBlue,R.color.materialRed)
 
     }
 

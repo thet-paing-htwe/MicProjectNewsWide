@@ -34,13 +34,13 @@ class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountry
         lateinit var allCountryItem2: AllCountryItem
         fun bind(allCountryItem: AllCountryItem) {
             this.allCountryItem2 = allCountryItem
+            var pos:Int=countryFilterList.indexOf(listCountry[adapterPosition])
             Picasso.get().load(allCountryItem.countryInfo.flag).into(itemView.flagValue)
             itemView.nameValue.text = allCountryItem.country
             itemView.TaffectedValue.text = getFormatedNumber(allCountryItem.cases.toLong())
             itemView.TrecoveredValue.text = getFormatedNumber(allCountryItem.recovered.toLong())
             itemView.TdeathsValue.text = getFormatedNumber(allCountryItem.deaths.toLong())
-            itemView.num.text = ((adapterPosition) + 1).toString()
-            var lastPosition = -1
+            itemView.num.text = (pos+ 1).toString()
             if (allCountryItem.todayCases <= 0) {
                 itemView.newAff.visibility = View.GONE
             } else {
@@ -96,8 +96,6 @@ class CoronaAdapter(var listCountry: List<AllCountryItem> = ArrayList<AllCountry
 
     override fun onBindViewHolder(holder: CoronaViewHolder, position: Int) {
         holder.bind(listCountry[position])
-
-
     }
 
     interface ClickListener {

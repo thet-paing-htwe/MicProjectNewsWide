@@ -1,6 +1,7 @@
 package com.tphtwe.newswide.ui.vaccine
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tphtwe.newswide.R
 import kotlinx.android.synthetic.main.fragment_vaccine_tracker.*
 
+@Suppress("DEPRECATION")
 class VaccineTrackerFragment : Fragment() {
 
     private lateinit var vaccineTrackerViewModel: VaccineTrackerViewModel
@@ -54,6 +56,17 @@ class VaccineTrackerFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar!!.title="Vaccine Tracker"
         vaccineTrackerViewModel.loadResult()
+        swipeRefreshV.setOnRefreshListener {
+            vaccineTrackerViewModel.loadResult()
+            observeViewModel()
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                if (swipeRefreshV.isRefreshing) {
+                    swipeRefreshV.isRefreshing = false
+                }
+            }, 5000)
+        }
+        swipeRefreshV.setColorSchemeResources(R.color.materialGreen,R.color.materialBlue,R.color.materialRed)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
